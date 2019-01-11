@@ -29,9 +29,11 @@ app.use(express.static(path.join(__dirname, 'static')));    // 设置静态文�
 
 
 app.all('*', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:13131");
-    res.header("Access-Control-Allow-Credentials", "true");
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    if(req.headers.origin=='http:/localhost:63341'||req.headers.origin=='http://10.30.29.63:63341') {
+        res.header("Access-Control-Allow-Origin", req.headers.origin);
+        res.header("Access-Control-Allow-Credentials", "true");
+        res.header('Access-Control-Allow-Headers', 'Content-Type');
+    }
     //res.header( 'Content-Type',"text/html; charset=gbk");
     next();
 })
